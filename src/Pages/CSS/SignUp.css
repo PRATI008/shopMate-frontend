@@ -15,7 +15,7 @@ body{
 
 .loginPage{
     width:100%;
-    min-height:100vh;
+    min-height:600px;
     display:flex;
     justify-content:center;
     align-items:center;
@@ -24,8 +24,8 @@ body{
 }
 
 .loginBox{
-    width:1200px;
-    min-height:720px;
+    width:1000px;
+    min-height:600px;
     background:#fff;
     display:flex;
     border-radius:25px;

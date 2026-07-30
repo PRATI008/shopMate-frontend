@@ -1,0 +1,126 @@
+.contact-outer{
+    max-height: 100vh;
+
+}
+.first-box{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0px;
+    width: 100%;
+    padding: 40px 50px;
+
+}
+.first-box-content{
+    width: 36%;
+
+}
+.first-box-content>h5{
+    color: orangered;
+    font-weight: bold;
+}
+.first-box-content>h1{
+    font-size: 50px;
+    font-weight: bold;
+
+
+}
+.first-box-content>h1>span{
+    color: orangered;
+}
+
+.first-box-content>p{
+    color: rgb(83, 82, 82);
+    font-size: 17px;
+    
+}
+.first-box-image>img{
+    height: 400px;
+
+}
+.first-box-content>button{
+    padding: 10px 60px;
+    margin-top: 20px;
+    background-color: orangered;
+    color: white;
+    font-weight: 600;
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+
+}
+
+.contact-social{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 50px;
+    margin-top: 40px;
+}
+.social-box{
+    box-shadow: 4px 0px 10px rgb(244, 240, 240);
+    background-color: white;
+    height: 200px;
+    width: 250px;
+    border-radius: 20px;
+    padding: 20px 20px;
+}
+.social-box>span{
+    height: 50px;
+    width: 40px;
+    background-color: rgb(242, 231, 226);
+    color: orangered;
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+    margin: auto;
+    margin-bottom: 15px;
+    align-items: center;
+    border-radius: 50%;
+    font-weight: bold;
+}
+.social-box>h5{
+    font-size: 20px;
+    text-align: center;
+    font-weight: bold;
+
+}
+.social-box>p{
+    text-align: center;
+    margin-top: 5px;
+    font-size: 12px;
+    font-weight: bold;
+    color: rgb(112, 112, 112);
+}
+
+.contact-form-section{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    margin-top: 40px;
+
+}
+.form-left{
+width: 40%;
+}
+.form-left>span{
+    color: orangered;
+    font-weight: 600;
+    font-size: 15px;
+}
+.form-left>h2{
+    font-size: 45px;
+    font-weight: bold;
+}
+.form-left>h2>span{
+    color: orangered;
+}
+
+
+.form-right>img{
+
+    height: 400px;
+}
