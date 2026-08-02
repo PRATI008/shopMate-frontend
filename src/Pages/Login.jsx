@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import "./CSS/Login.css";
 import Header from "../Component/Header";
+import axios from 'axios';
+import {toast} from 'react-toastify';
+
 
 import {
   FaEye,
@@ -15,21 +18,58 @@ import {
 } from "react-icons/md";
 
 import { Link } from "react-router-dom";
-const Login = () => {
+import {useNavigate} from "react-router-dom";
 
+const Login = () => {
+const navigate=useNavigate();
 const [showPassword,setShowPassword]=useState(false);
 
 const [email,setEmail]=useState("");
 
 const [password,setPassword]=useState("");
 
-const handleSubmit=(e)=>{
+const handleSubmit = async (e) => {
+    e.preventDefault();
 
-e.preventDefault();
+    const api_url = import.meta.env.VITE_API_URL;
 
-console.log(email,password);
+    const data = {
+        email,
+        password,
+    };
 
-}
+    try {
+
+        const response = await axios.post(
+            `${api_url}/api/user/login`,
+            data
+        );
+
+        console.log(response.data);
+
+        if (response.data.success) {
+
+            localStorage.setItem("token", response.data.token);
+            localStorage.setItem("role", response.data.role);
+
+            toast.success(response.data.message);
+
+            navigate("/");
+
+        } else {
+
+            toast.error(response.data.message);
+
+        }
+
+    } catch (error) {
+
+        console.log(error);
+
+        toast.error("Something went wrong!");
+
+    }
+};
 
 return(
 <>

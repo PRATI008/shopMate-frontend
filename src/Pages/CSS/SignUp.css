@@ -15,47 +15,56 @@ body{
 
 .loginPage{
     width:100%;
-    min-height:600px;
+    min-height:100vh;
     display:flex;
     justify-content:center;
     align-items:center;
-    padding:40px 20px;
-    background:linear-gradient(135deg,#fff8f2,#ffffff);
+    padding:20px;
+    background:
+    radial-gradient(circle at top left,#fff3eb 0%,transparent 30%),
+    radial-gradient(circle at bottom right,#fff5ef 0%,transparent 30%),
+    #f6f7fb;
 }
 
 .loginBox{
-    width:1000px;
-    min-height:600px;
+    width:100%;
+    max-width:980px;
+    min-height:560px;
     background:#fff;
     display:flex;
-    border-radius:25px;
+    border-radius:20px;
     overflow:hidden;
-    box-shadow:0 20px 60px rgba(0,0,0,.12);
+    box-shadow:
+    0 15px 40px rgba(0,0,0,.10),
+    0 5px 15px rgba(0,0,0,.05);
 }
-
 /* =========================
       LEFT PANEL
 ========================= */
 
 .loginLeft{
-    width:42%;
-    background:linear-gradient(180deg,#ff7b00,#ff5c00);
+    width:60%;
+    min-height:560px;
     position:relative;
     overflow:hidden;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    padding:40px;
+    border-radius:20px 0 0 20px;
 }
 
 /* Background Image */
-
 .loginLeft::before{
     content:"";
     position:absolute;
-    inset:0;
-    background:url("/images/sign-up.png") center/contain no-repeat;
-    z-index:1;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+
+    background-image:url("/images/sign-up.png");
+    background-repeat:no-repeat;
+    background-position:center;
+   background-size:100% 100%;  /* Full image */
+
+    transition:.4s;
 }
 
 /* Circle */
@@ -74,22 +83,22 @@ body{
 /* =========================
       RIGHT PANEL
 ========================= */
-
 .loginRight{
-    width:58%;
+    width:60%;
     display:flex;
     justify-content:center;
     align-items:center;
-    padding:40px;
+    padding:35px;
 }
-
 .loginRight form{
     width:100%;
+    max-width:420px;
 }
 
 .loginRight h2{
     text-align:center;
-    font-size:45px;
+   font-size:34px;
+margin-bottom:5px;
     font-weight:700;
     color:#222;
 }
@@ -136,7 +145,7 @@ label{
 input,
 select{
     width:100%;
-    height:52px;
+    height:48px;
     border:1px solid #ddd;
     border-radius:10px;
     padding:0 15px;
@@ -164,12 +173,12 @@ input[type="date"]{
 
 .sign-btn{
     width:100%;
-    height:55px;
+    height:50px;
+font-size:16px;
     border:none;
     border-radius:10px;
     background:linear-gradient(90deg,#ff7a00,#ff5c00);
     color:#fff;
-    font-size:18px;
     font-weight:600;
     cursor:pointer;
     transition:.35s;
@@ -220,7 +229,7 @@ input[type="date"]{
 
 .social-btn button{
     flex:1;
-    height:48px;
+    height:46px;
     border:1px solid #ddd;
     border-radius:10px;
     background:#fff;
@@ -267,7 +276,8 @@ form p:last-child a{
 
 .loginLeft{
     width:100%;
-    height:350px;
+    min-height:260px;
+ min-height:220px;
 }
 
 .loginLeft::before{
@@ -311,7 +321,9 @@ form p:last-child a{
 }
 
 .loginLeft{
-    height:250px;
+   
+    min-height:220px;
+
     padding:20px;
 }
 
@@ -376,7 +388,7 @@ select{
 @media (max-width:480px){
 
 .loginLeft{
-    height:180px;
+    min-height:180px;
 }
 
 .loginLeft::before{
@@ -428,8 +440,9 @@ select{
 }
 
 .loginBox:hover{
-    transform:translateY(-5px);
-    box-shadow:0 25px 60px rgba(0,0,0,.18);
+    transform:translateY(-3px);
+    box-shadow:
+    0 20px 45px rgba(0,0,0,.12);
 }
 
 input:hover,

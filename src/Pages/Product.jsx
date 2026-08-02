@@ -59,9 +59,9 @@ const Product = () => {
         {
           products.map((item, index) => (
             <div className="card">
-              <img src={item.Image} alt="bag" />
-              <p >{products.productTitle}</p>
-              <p>{products.productPrice}</p>
+              <img src={item.Image} />
+              <h3 >{item.productTitle}</h3>
+              <p>₹{item.productPrice}</p>
               <button><FaCartShopping /> Add to Cart</button>
             </div>
           ))

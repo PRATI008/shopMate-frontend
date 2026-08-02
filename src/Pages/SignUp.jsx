@@ -6,8 +6,7 @@ import {toast} from 'react-toastify';
 
 const SignUp=()=>{
  const [formData,setFormData] = useState({
-  fname:"",
-  lname:"",
+  fullname:"",
   email:"",
   phone:"",
   password:"",
@@ -59,12 +58,12 @@ const SignUp=()=>{
 
     <div>
         <label>Full Name</label>
-        <input type="text" placeholder="Enter Your Name"/>
+        <input type="text" placeholder="Enter Your Name" name="fullname" onChange={handleChange}/>
     </div>
 
     <div>
         <label>Email Address</label>
-        <input type="email"  placeholder="Enter Your Email"/>
+        <input type="email"  placeholder="Enter Your Email" name="email" onChange={handleChange}/>
     </div>
 
 </div>
@@ -73,12 +72,12 @@ const SignUp=()=>{
 
     <div>
         <label>Phone Number</label>
-        <input type="text"  placeholder="Enter Your Phone No."/>
+        <input type="text"  placeholder="Enter Your Phone No." name="phone" onChange={handleChange}/>
     </div>
 
     <div>
         <label>Password</label>
-        <input type="password" placeholder="Enter Your Password"/>
+        <input type="password" placeholder="Enter Your Password" name="password" onChange={handleChange}/>
     </div>
 
 </div>
@@ -98,7 +97,7 @@ const SignUp=()=>{
 
 
 
-<select name="Gender" onChange={handleChange}>
+<select name="gender" onChange={handleChange}>
   <option value="">Select Gender</option>
   <option value="Male">Male</option>
   <option value="Female">Female</option>
@@ -119,8 +118,8 @@ const SignUp=()=>{
             <div className="social-btn"></div>
 
             <p>
-              Don't have an account?
-              <Link to="/signup"> Register</Link>
+              Please Login?
+              <Link to="/Login"> Login</Link>
             </p>
 
           </form>
