@@ -17,11 +17,13 @@ import {
   MdLock,
 } from "react-icons/md";
 
-import { Link } from "react-router-dom";
-import {useNavigate} from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 const Login = () => {
 const navigate=useNavigate();
+const location = useLocation();
+const { login } = useAuth();
 const [showPassword,setShowPassword]=useState(false);
 
 const [email,setEmail]=useState("");
@@ -49,16 +51,16 @@ const handleSubmit = async (e) => {
 
         if (response.data.success) {
 
-            localStorage.setItem("token", response.data.token);
-            localStorage.setItem("role", response.data.role);
+            login(response.data.token, response.data.role, response.data.user || { email });
 
-            toast.success(response.data.message);
+            toast.success(response.data.message || "Logged in successfully!");
 
-            navigate("/");
+            const destination = location.state?.from || "/";
+            navigate(destination, { replace: true });
 
         } else {
 
-            toast.error(response.data.message);
+            toast.error(response.data.message || "Login failed");
 
         }
 
@@ -66,7 +68,7 @@ const handleSubmit = async (e) => {
 
         console.log(error);
 
-        toast.error("Something went wrong!");
+        toast.error(error.response?.data?.message || "Something went wrong!");
 
     }
 };

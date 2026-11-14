@@ -2,32 +2,42 @@ import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import "./CSS/SignUp.css";
 import axios from 'axios';
-import {toast} from 'react-toastify';
+import { toast } from 'react-toastify';
 
-const SignUp=()=>{
- const [formData,setFormData] = useState({
-  fullname:"",
-  email:"",
-  phone:"",
-  password:"",
-  dob:"",
-  gender:""
- })
+const SignUp = () => {
+  const navigate = useNavigate();
+  const [formData, setFormData] = useState({
+    fullname: "",
+    email: "",
+    phone: "",
+    password: "",
+    confirmPassword: "",
+    dob: "",
+    gender: ""
+  });
 
- const api_url = import.meta.env.VITE_API_URL
+  const api_url = import.meta.env.VITE_API_URL;
   
-  const handleSubmit = async(e)=>{
-    e.preventDefault()
-    try{
-      const response = await axios.post(`${api_url}/api/user/signup`,formData)
-      toast.success("User Registered Suceessfully!");
-
-    } catch (error){
-      console.log(error);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (formData.password !== formData.confirmPassword) {
+      toast.error("Passwords do not match!");
+      return;
     }
-    console.log(formData);
 
-  }
+    try {
+      const response = await axios.post(`${api_url}/api/user/signup`, formData);
+      if (response.data.success !== false) {
+        toast.success(response.data.message || "User Registered Successfully!");
+        navigate("/login");
+      } else {
+        toast.error(response.data.message || "Registration failed");
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error(error.response?.data?.message || "Registration failed! Please check your backend.");
+    }
+  };
 
   const handleChange=(e)=>{
     setFormData({

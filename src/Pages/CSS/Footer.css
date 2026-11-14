@@ -1,240 +1,119 @@
-.footer-page{
-    background-color: white;
-    color: black;
-    display: flex;
-    padding: 40px;
-    
-    justify-content: space-between;
-
-}
-.first-links{
-   width: 250px;
-}
-.first-links>h1{
-color:black;
-font-size: 30px;
-font-weight: bold;
-}
-.first-links>h1>span{
-    color: orangered;
-}
-.first-links>p{
-    display: flex;
-    align-items: center;
-    gap: 10px;
-
-
-}
-.first-links>p>span{
-    color: orangered;
-}
-.first-links>h2{
-    font-size: 20px;
-    font-weight: bold;
-    color: orangered;
-
-}
-.first-links .links{
-    display: flex;
-    gap: 20px;
-    margin-top: 20px;
-    font-size: 20px;
+.footer-page {
+  background-color: #232f3e; /* Amazon signature dark navy footer */
+  color: #dddddd;
+  padding: 50px 8% 30px;
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1.2fr 1.2fr;
+  gap: 40px;
+  border-top: 1px solid #37475a;
 }
 
-.first-links .accept{
-    margin-top: 15px;
-  
-}
-.quick-links{
-
-}
-.quick-links>h3{
-    color: orangered;
-    font-size: 25px;
-    font-weight: bold;
-    
-
-}
-.quick-links>ul{
-    margin-top: 10px;
-}
-.quick-links>ul>li{
-    list-style: none;
-    margin-top: 5px;
-    font-size: 15px;
-
-}
-.quick-links>p{
-    /* margin-top: 90%; */
-    
+.first-links h1 {
+  color: #ffffff;
+  font-size: 26px;
+  font-weight: 900;
+  margin-bottom: 12px;
 }
 
-.customers>h1{
-    font-size: 25px;
-    font-weight: bold;
-    color: orangered;
-
-}
-.customers>ul{
-    margin-top: 15px;
-}
-.customers>ul>li{
-    font-size: 18px;
-    margin-top: 6px;
-    
-}
-.fourth-links>h2{
-font-size: 20px;
-    font-weight: bold;
-    color: orangered;
-}
-.fourth-links .links{
-     display: flex;
-    gap: 20px;
-    margin-top: 20px;
-    font-size: 20px;
-}
-.fourth-links .accept{
-     margin-top: 15px;
+.first-links h1 span {
+  color: #ff5000; /* Orangered */
 }
 
-
-
-
-
-
-
-
-
-/* ==========================
-      Tablet View
-========================== */
-
-@media (max-width:1024px){
-
-.footer-page{
-    display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:40px;
-    padding:50px 40px;
+.first-links > p {
+  color: #cccccc;
+  font-size: 14px;
+  line-height: 1.6;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
-.first-links,
-.quick-links,
-.customers,
-.fourth-links{
-    width:100%;
+.first-links > p span {
+  color: #ff5000;
+  display: flex;
+  align-items: center;
 }
 
-.accept{
-    flex-wrap:wrap;
-    gap:12px !important;
-}
-
-.links{
-    display:flex;
-    gap:18px;
-    font-size:24px;
-}
-
-}
-
-
-/* ==========================
-      Mobile View
-========================== */
-
-@media (max-width:768px){
-
-.footer-page{
-    display:flex;
-    flex-direction:column;
-    text-align:center;
-    padding:40px 20px;
-    gap:35px;
-}
-
-.first-links h1,
 .quick-links h3,
 .customers h1,
-.fourth-links h2{
-    margin-bottom:15px;
-}
-
-.first-links p{
-    font-size:15px;
-    line-height:28px;
+.fourth-links h2 {
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 800;
+  margin-bottom: 16px;
+  position: relative;
 }
 
 .quick-links ul,
-.customers ul{
-    list-style:none;
-    padding:0;
-    margin:0;
+.customers ul {
+  list-style: none;
 }
 
 .quick-links ul li,
-.customers ul li{
-    margin:10px 0;
-    font-size:15px;
+.customers ul li {
+  margin-bottom: 9px;
+  font-size: 13.5px;
+  color: #cccccc;
+  cursor: pointer;
+  transition: color 0.2s ease, transform 0.2s ease;
 }
 
-.links{
-    display:flex;
-    justify-content:center;
-    gap:20px;
-    font-size:28px;
+.quick-links ul li:hover,
+.customers ul li:hover {
+  color: #ff5000;
+  text-decoration: underline;
 }
 
-.accept{
-    display:flex !important;
-    justify-content:center;
-    flex-wrap:wrap;
-    gap:15px !important;
+.fourth-links .links {
+  display: flex;
+  gap: 14px;
+  margin: 15px 0 25px;
 }
 
-.accept svg{
-    width:30px;
-    height:30px;
+.fourth-links .links svg {
+  font-size: 20px;
+  color: #cccccc;
+  cursor: pointer;
+  transition: all 0.2s ease;
 }
 
+.fourth-links .links svg:hover {
+  color: #ec4899; /* Pink accent */
+  transform: translateY(-2px);
 }
 
-
-/* ==========================
-      Small Mobile
-========================== */
-
-@media (max-width:480px){
-
-.footer-page{
-    padding:30px 15px;
+.fourth-links .accept {
+  margin-top: 12px;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
 }
 
-.first-links h1{
-    font-size:30px;
+.fourth-links .accept svg {
+  stroke: #ffffff;
+  opacity: 0.9;
+  transition: opacity 0.2s;
 }
 
-.quick-links h3,
-.customers h1,
-.fourth-links h2{
-    font-size:22px;
+.fourth-links .accept svg:hover {
+  opacity: 1;
 }
 
-.first-links p,
-.quick-links ul li,
-.customers ul li{
-    font-size:14px;
+/* Responsive Footer */
+@media (max-width: 1024px) {
+  .footer-page {
+    grid-template-columns: 1fr 1fr;
+    gap: 35px;
+    padding: 40px 6% 25px;
+  }
 }
 
-.links{
-    font-size:24px;
-    gap:16px;
-}
-
-.accept svg{
-    width:26px;
-    height:26px;
-}
-
+@media (max-width: 640px) {
+  .footer-page {
+    grid-template-columns: 1fr;
+    gap: 25px;
+    padding: 35px 20px 20px;
+  }
 }
