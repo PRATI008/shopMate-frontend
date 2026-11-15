@@ -15,6 +15,11 @@ import Checkout from './Pages/Checkout';
 import TrackOrder from './Pages/TrackOrder';
 import Wishlist from './Pages/Wishlist';
 import MyOrders from './Pages/MyOrders';
+import Seller from './Pages/Seller';
+import PrivacyPolicy from './Pages/PrivacyPolicy';
+import TermsAndConditions from './Pages/TermsAndConditions';
+import ShippingAndReturns from './Pages/ShippingAndReturns';
+import NotFound from './Pages/NotFound';
 import ScrollToTop from './Component/ScrollToTop';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -45,9 +50,13 @@ const App = () => {
               <Route path="/signup" element={<SignUp />} />
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/profile" element={<Profile />} />
+              <Route path="/seller" element={<Seller />} />
+              <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+              <Route path="/terms" element={<TermsAndConditions />} />
+              <Route path="/shipping-returns" element={<ShippingAndReturns />} />
+              <Route path="*" element={<NotFound />} />
             </Routes>
           </Router>
-
           <ToastContainer
             position="top-right"
             autoClose={3500}

@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import "./CSS/SignUp.css";
+import Header from "../Component/Header";
+import Footer from "../Component/Footer";
 import axios from 'axios';
 import { toast } from 'react-toastify';
 
@@ -50,6 +52,7 @@ const SignUp = () => {
 
   return (
     <>
+    <Header />
     <section className="loginPage">
       <div className="loginBox">
 
@@ -138,6 +141,7 @@ const SignUp = () => {
 
       </div>
     </section>
+    <Footer />
     </>
   );
 }

@@ -3,7 +3,7 @@ import Header from '../Component/Header';
 import Footer from '../Component/Footer';
 import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import {
@@ -13,17 +13,20 @@ import {
   FaLock,
   FaArrowLeft,
   FaCheckCircle,
-  FaSpinner
+  FaSpinner,
+  FaMapMarkerAlt,
+  FaPlus
 } from 'react-icons/fa';
 import { SiGooglepay, SiPaytm, SiPhonepe } from 'react-icons/si';
 import './CSS/Checkout.css';
 
 const Checkout = () => {
   const { cartItems, subtotal, clearCart } = useCart();
-  const { isAuthenticated, user } = useAuth();
+  const { isAuthenticated, user, token } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
 
-  // Authentication Guard: Redirect if not logged in
+  // Authentication Guard
   useEffect(() => {
     if (!isAuthenticated) {
       toast.error('You must be logged in to access checkout!');
@@ -31,8 +34,16 @@ const Checkout = () => {
     }
   }, [isAuthenticated, navigate]);
 
-  const shipping = subtotal > 0 ? (subtotal > 999 ? 0 : 99) : 0;
-  const grandTotal = subtotal + shipping;
+  // Read applied coupon from Cart navigation state
+  const appliedCoupon = location.state?.appliedCoupon || null;
+  const discountAmount = location.state?.discountAmount || 0;
+
+  const discountedSubtotal = Math.max(0, subtotal - discountAmount);
+  const shipping = subtotal > 0 ? (discountedSubtotal > 999 ? 0 : 99) : 0;
+  const grandTotal = discountedSubtotal + shipping;
+
+  const [savedAddresses, setSavedAddresses] = useState(user?.savedAddresses || []);
+  const [selectedAddressIndex, setSelectedAddressIndex] = useState(0);
 
   const [shippingDetails, setShippingDetails] = useState({
     fullname: user?.fullname || user?.name || '',
@@ -54,11 +65,13 @@ const Checkout = () => {
     cvv: ''
   });
 
-  // Gateway Modal & Processing states
+  // Gateway Modal & Verification states
   const [processing, setProcessing] = useState(false);
   const [gatewayStep, setGatewayStep] = useState(null); // 'connecting', 'verifying', 'otp_modal', null
   const [otp, setOtp] = useState('');
   const [pendingGatewayData, setPendingGatewayData] = useState(null);
+
+  const api_url = import.meta.env.VITE_API_URL || 'http://localhost:5000';
 
   const handleInputChange = (e) => {
     setShippingDetails({
@@ -94,7 +107,7 @@ const Checkout = () => {
     }
 
     if (!shippingDetails.fullname || !shippingDetails.address || !shippingDetails.phone || !shippingDetails.pincode) {
-      toast.warn('Please fill all required shipping details.');
+      toast.warn('Please fill in complete delivery address details.');
       return;
     }
 
@@ -104,18 +117,16 @@ const Checkout = () => {
         return;
       }
       if (onlineType === 'Card' && (cardDetails.cardNumber.length < 16 || !cardDetails.cvv)) {
-        toast.warn('Please enter a valid Card Number and CVV.');
+        toast.warn('Please enter a valid 16-digit Card Number and CVV.');
         return;
       }
     }
-
-    const api_url = import.meta.env.VITE_API_URL || 'http://localhost:5000';
 
     try {
       setProcessing(true);
       setGatewayStep('connecting');
 
-      // Step 1: Initiate Payment Gateway Session from Backend
+      // 1. Initiate Razorpay / ShopMate Gateway from Backend
       const initRes = await axios.post(`${api_url}/api/order/payment/initiate`, {
         amount: grandTotal,
         customerEmail: shippingDetails.email,
@@ -128,19 +139,18 @@ const Checkout = () => {
 
       const gatewayInfo = initRes.data;
 
-      // COD Flow
+      // Cash On Delivery (COD) Bypass
       if (paymentMethod === 'COD') {
         finalizeOrder(gatewayInfo, 'COD');
         return;
       }
 
-      // Online Gateway Flow - Show OTP Verification Dialog
+      // Online Gateway: Trigger simulated Bank 2FA Authentication
       setPendingGatewayData(gatewayInfo);
       setTimeout(() => {
         setProcessing(false);
         setGatewayStep('otp_modal');
       }, 1000);
-
     } catch (error) {
       console.error('Payment error:', error);
       setProcessing(false);
@@ -153,8 +163,6 @@ const Checkout = () => {
     setProcessing(true);
     setGatewayStep('verifying');
 
-    const api_url = import.meta.env.VITE_API_URL || 'http://localhost:5000';
-
     try {
       const orderPayload = {
         gatewayOrderId: gatewayInfo.gatewayOrderId,
@@ -162,18 +170,20 @@ const Checkout = () => {
         paymentMethod: chosenMethod || (paymentMethod === 'COD' ? 'COD' : onlineType),
         shippingDetails,
         items: cartItems.map((item) => ({
-          productId: item._id || item.id || '',
+          productId: item._id || item.id || null,
           productTitle: item.productTitle,
           productPrice: Number(item.productPrice) || 0,
           quantity: item.quantity || 1,
           image: item.Image || ''
         })),
         subtotal,
+        discountAmount,
+        couponCode: appliedCoupon?.code || '',
         shippingFee: shipping,
         grandTotal
       };
 
-      // Step 2: Verify & Store in MongoDB
+      // 2. Server-side Verification & Final Order Placement in MongoDB
       const verifyRes = await axios.post(`${api_url}/api/order/payment/verify-and-order`, orderPayload);
 
       if (verifyRes.data && verifyRes.data.success) {
@@ -200,7 +210,6 @@ const Checkout = () => {
       toast.warn('Please enter 4-digit OTP (e.g. 1234)');
       return;
     }
-    // Finalize payment verification
     finalizeOrder(pendingGatewayData, onlineType);
   };
 
@@ -215,7 +224,7 @@ const Checkout = () => {
             onClick={() => navigate('/product')}
             style={{
               padding: '12px 24px',
-              backgroundColor: '#f95919',
+              backgroundColor: '#ff5000',
               color: 'white',
               border: 'none',
               borderRadius: '8px',
@@ -239,11 +248,12 @@ const Checkout = () => {
           <FaArrowLeft /> Back to Cart
         </button>
 
-        <h1>Secure Checkout & Payment</h1>
+        <h1>Secure Checkout</h1>
 
         <div className="checkout-grid">
-          {/* Left Column: Details & Payment Methods */}
+          {/* Left Column: Delivery & Payment Details */}
           <div className="checkout-left">
+            {/* 1. Address Section */}
             <div className="checkout-card">
               <h3>1. Delivery Address</h3>
               <div className="form-row">
@@ -321,7 +331,7 @@ const Checkout = () => {
               </div>
 
               <div className="form-group">
-                <label>Phone Number (for delivery SMS) *</label>
+                <label>Phone Number (for delivery SMS & updates) *</label>
                 <input
                   type="tel"
                   name="phone"
@@ -334,8 +344,9 @@ const Checkout = () => {
               </div>
             </div>
 
+            {/* 2. Payment Method Section */}
             <div className="checkout-card">
-              <h3>2. Select Payment Option</h3>
+              <h3>2. Select Payment Method</h3>
 
               <div className="payment-options">
                 <label className={`payment-option ${paymentMethod === 'Online' ? 'selected' : ''}`}>
@@ -348,9 +359,9 @@ const Checkout = () => {
                   />
                   <div className="option-content">
                     <div className="option-title">
-                      <FaCreditCard color="#f95919" /> Instant Online Payment (UPI / Cards)
+                      <FaCreditCard color="#ff5000" /> Instant Online Payment (UPI / Cards / NetBanking)
                     </div>
-                    <span className="badge-secure"><FaShieldAlt /> Fast & Encrypted</span>
+                    <span className="badge-secure"><FaShieldAlt /> 100% Secure & Encrypted</span>
                   </div>
                 </label>
 
@@ -371,7 +382,7 @@ const Checkout = () => {
                 </label>
               </div>
 
-              {/* Online Gateway Tabs */}
+              {/* Online Options */}
               {paymentMethod === 'Online' && (
                 <div className="online-payment-box">
                   <div className="online-tabs">
@@ -462,7 +473,7 @@ const Checkout = () => {
             </div>
           </div>
 
-          {/* Right Column: Order Summary */}
+          {/* Right Column: Order Summary with Discounts */}
           <div className="checkout-right">
             <div className="order-summary-card">
               <h3>Order Summary ({cartItems.length} items)</h3>
@@ -489,15 +500,24 @@ const Checkout = () => {
                   <span>Subtotal</span>
                   <span>₹{subtotal.toLocaleString()}</span>
                 </div>
+
+                {appliedCoupon && (
+                  <div className="price-row" style={{ color: '#16a34a', fontWeight: 'bold' }}>
+                    <span>Coupon Discount ({appliedCoupon.code})</span>
+                    <span>-₹{discountAmount.toLocaleString()}</span>
+                  </div>
+                )}
+
                 <div className="price-row">
                   <span>Delivery Charge</span>
                   <span>
                     {shipping === 0 ? <strong style={{ color: '#16a34a' }}>FREE</strong> : `₹${shipping}`}
                   </span>
                 </div>
+
                 <div className="price-row total-row">
                   <span>Grand Total</span>
-                  <span>₹{grandTotal.toLocaleString()}</span>
+                  <span style={{ color: '#ff5000' }}>₹{grandTotal.toLocaleString()}</span>
                 </div>
               </div>
 
@@ -526,15 +546,15 @@ const Checkout = () => {
         </div>
       </div>
 
-      {/* 2-Factor Authentication Modal (Bank Gateway simulation) */}
+      {/* 2-Factor Authentication Modal */}
       {gatewayStep === 'otp_modal' && (
         <div className="gateway-modal-overlay">
           <div className="gateway-modal-card">
             <div className="gateway-modal-header">
-              <FaShieldAlt size={28} color="#f95919" />
+              <FaShieldAlt size={28} color="#ff5000" />
               <div>
                 <h3>Bank Payment Gateway Verification</h3>
-                <p>Merchant: ShopMate Official</p>
+                <p>Merchant: ShopMate Official Store</p>
               </div>
             </div>
 
@@ -557,7 +577,7 @@ const Checkout = () => {
                     onChange={(e) => setOtp(e.target.value)}
                     autoFocus
                   />
-                  <span className="demo-hint">💡 Hint: Enter <strong>1234</strong> to approve payment</span>
+                  <span className="demo-hint">💡 Demo Hint: Enter <strong>1234</strong> to approve transaction</span>
                 </div>
 
                 <div className="gateway-modal-actions">
@@ -581,7 +601,7 @@ const Checkout = () => {
         </div>
       )}
 
-      {/* Verifying Spinner Screen */}
+      {/* Verifying Loader Screen */}
       {gatewayStep === 'verifying' && (
         <div className="gateway-modal-overlay">
           <div className="gateway-modal-card verifying-card">
