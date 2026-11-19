@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Header from '../Component/Header';
 import Footer from '../Component/Footer';
+import './CSS/Profile.css';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import {
@@ -100,28 +101,10 @@ const Profile = () => {
   return (
     <>
       <Header />
-      <div style={{ maxWidth: '900px', margin: '40px auto', padding: '0 20px', minHeight: '68vh' }}>
-        <div
-          style={{
-            background: '#fff',
-            borderRadius: '16px',
-            padding: '35px',
-            boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.05)',
-            border: '1px solid #f1f5f9'
-          }}
-        >
+      <div className="profile-wrapper">
+        <div className="profile-card">
           {/* User Header */}
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              borderBottom: '1px solid #e2e8f0',
-              paddingBottom: '24px',
-              flexWrap: 'wrap',
-              gap: '16px'
-            }}
-          >
+          <div className="profile-header-row">
             <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
               <div
                 style={{
@@ -237,14 +220,7 @@ const Profile = () => {
           {/* Profile Overview Tab */}
           {activeTab === 'profile' && (
             <div>
-              <div
-                style={{
-                  display: 'grid',
-                  gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
-                  gap: '16px',
-                  marginBottom: '25px'
-                }}
-              >
+              <div className="profile-stats-grid">
                 <div style={{ background: '#f8fafc', padding: '16px', borderRadius: '10px' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#64748b', fontSize: '13px', marginBottom: '4px' }}>
                     <FaEnvelope /> Email Address
@@ -260,7 +236,7 @@ const Profile = () => {
                 </div>
               </div>
 
-              <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
+              <div className="profile-actions-btns">
                 <button
                   onClick={() => navigate('/my-orders')}
                   style={{
@@ -338,7 +314,7 @@ const Profile = () => {
                   <p style={{ color: '#64748b', marginTop: '10px' }}>No saved addresses found. Add one for quick checkout!</p>
                 </div>
               ) : (
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '16px' }}>
+                <div className="addresses-grid">
                   {addresses.map((addr, idx) => (
                     <div
                       key={addr._id || idx}

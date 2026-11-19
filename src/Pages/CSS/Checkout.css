@@ -514,10 +514,28 @@
 }
 
 @media (max-width: 868px) {
+  .checkout-container {
+    padding: 0 14px;
+    margin: 20px auto 40px;
+  }
+  .checkout-container h1 {
+    font-size: 22px;
+    margin-bottom: 20px;
+  }
   .checkout-grid {
     grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  .checkout-card {
+    padding: 18px;
+    border-radius: 12px;
   }
   .form-row, .form-row.three-cols {
     grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .gateway-modal-box {
+    width: 95%;
+    padding: 20px 16px;
   }
 }

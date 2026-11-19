@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Header from '../Component/Header';
 import Footer from '../Component/Footer';
+import './CSS/Seller.css';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import {
@@ -90,22 +91,9 @@ const Seller = () => {
   return (
     <>
       <Header />
-      <div style={{ maxWidth: '1200px', margin: '30px auto', padding: '0 20px', minHeight: '75vh' }}>
+      <div className="seller-container">
         {/* Banner */}
-        <div
-          style={{
-            background: 'linear-gradient(135deg, #131921 0%, #1e293b 100%)',
-            color: '#fff',
-            padding: '30px 40px',
-            borderRadius: '16px',
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            flexWrap: 'wrap',
-            gap: '20px',
-            boxShadow: '0 10px 25px rgba(0,0,0,0.1)'
-          }}
-        >
+        <div className="seller-banner">
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '8px' }}>
               <FaStore style={{ color: '#ff5000', fontSize: '28px' }} />
@@ -330,24 +318,9 @@ const Seller = () => {
 
         {/* Seller Dashboard Stats */}
         {sellerProfile ? (
-          <div style={{ marginTop: '30px' }}>
-            <div
-              style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
-                gap: '20px',
-                marginBottom: '30px'
-              }}
-            >
-              <div
-                style={{
-                  background: '#fff',
-                  padding: '24px',
-                  borderRadius: '12px',
-                  border: '1px solid #e2e8f0',
-                  boxShadow: '0 4px 6px rgba(0,0,0,0.02)'
-                }}
-              >
+          <div style={{ marginTop: '25px' }}>
+            <div className="seller-stats-grid">
+              <div className="seller-stat-card">
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                   <span style={{ color: '#64748b', fontSize: '14px', fontWeight: '600' }}>Store Name</span>
                   <FaStore style={{ color: '#ff5000' }} />
@@ -358,15 +331,7 @@ const Seller = () => {
                 <span style={{ fontSize: '12px', color: '#10b981', fontWeight: '600' }}>● Active Shop</span>
               </div>
 
-              <div
-                style={{
-                  background: '#fff',
-                  padding: '24px',
-                  borderRadius: '12px',
-                  border: '1px solid #e2e8f0',
-                  boxShadow: '0 4px 6px rgba(0,0,0,0.02)'
-                }}
-              >
+              <div className="seller-stat-card">
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                   <span style={{ color: '#64748b', fontSize: '14px', fontWeight: '600' }}>Total Orders Sold</span>
                   <FaBoxOpen style={{ color: '#ff5000' }} />
@@ -377,15 +342,7 @@ const Seller = () => {
                 <span style={{ fontSize: '12px', color: '#64748b' }}>Fulfilled via ShopMate Logistics</span>
               </div>
 
-              <div
-                style={{
-                  background: '#fff',
-                  padding: '24px',
-                  borderRadius: '12px',
-                  border: '1px solid #e2e8f0',
-                  boxShadow: '0 4px 6px rgba(0,0,0,0.02)'
-                }}
-              >
+              <div className="seller-stat-card">
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                   <span style={{ color: '#64748b', fontSize: '14px', fontWeight: '600' }}>Gross Sales</span>
                   <FaChartLine style={{ color: '#10b981' }} />
@@ -396,15 +353,7 @@ const Seller = () => {
                 <span style={{ fontSize: '12px', color: '#64748b' }}>Platform Fee: 10%</span>
               </div>
 
-              <div
-                style={{
-                  background: '#fff',
-                  padding: '24px',
-                  borderRadius: '12px',
-                  border: '1px solid #e2e8f0',
-                  boxShadow: '0 4px 6px rgba(0,0,0,0.02)'
-                }}
-              >
+              <div className="seller-stat-card">
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                   <span style={{ color: '#64748b', fontSize: '14px', fontWeight: '600' }}>Available Payout</span>
                   <FaIndianRupeeSign style={{ color: '#ec4899' }} />
@@ -432,18 +381,7 @@ const Seller = () => {
             </div>
 
             {/* Quick Actions */}
-            <div
-              style={{
-                background: '#fff',
-                padding: '24px',
-                borderRadius: '12px',
-                border: '1px solid #e2e8f0',
-                display: 'flex',
-                gap: '15px',
-                alignItems: 'center',
-                flexWrap: 'wrap'
-              }}
-            >
+            <div className="seller-actions-bar">
               <button
                 onClick={() => navigate('/dashboard')}
                 style={{
@@ -479,26 +417,12 @@ const Seller = () => {
           </div>
         ) : (
           /* Pitch features for non-registered users */
-          <div style={{ marginTop: '40px' }}>
-            <h2 style={{ textAlign: 'center', color: '#131921', marginBottom: '30px' }}>
+          <div style={{ marginTop: '35px' }}>
+            <h2 style={{ textAlign: 'center', color: '#131921', marginBottom: '24px', fontSize: '22px' }}>
               Why Sell on ShopMate?
             </h2>
-            <div
-              style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-                gap: '24px'
-              }}
-            >
-              <div
-                style={{
-                  background: '#fff',
-                  padding: '30px',
-                  borderRadius: '12px',
-                  border: '1px solid #e2e8f0',
-                  textAlign: 'center'
-                }}
-              >
+            <div className="seller-features-grid">
+              <div className="seller-feature-card">
                 <div
                   style={{
                     width: '60px',
@@ -521,15 +445,7 @@ const Seller = () => {
                 </p>
               </div>
 
-              <div
-                style={{
-                  background: '#fff',
-                  padding: '30px',
-                  borderRadius: '12px',
-                  border: '1px solid #e2e8f0',
-                  textAlign: 'center'
-                }}
-              >
+              <div className="seller-feature-card">
                 <div
                   style={{
                     width: '60px',
@@ -552,15 +468,7 @@ const Seller = () => {
                 </p>
               </div>
 
-              <div
-                style={{
-                  background: '#fff',
-                  padding: '30px',
-                  borderRadius: '12px',
-                  border: '1px solid #e2e8f0',
-                  textAlign: 'center'
-                }}
-              >
+              <div className="seller-feature-card">
                 <div
                   style={{
                     width: '60px',

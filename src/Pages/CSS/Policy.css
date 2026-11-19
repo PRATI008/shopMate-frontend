@@ -1,0 +1,35 @@
+/* =======================================================
+   LEGAL / POLICY PAGES RESPONSIVE STYLES
+======================================================= */
+.policy-page-wrapper {
+  max-width: 900px;
+  margin: 30px auto 60px;
+  padding: 0 20px;
+  min-height: 70vh;
+}
+
+.policy-page-card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 40px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+}
+
+@media (max-width: 768px) {
+  .policy-page-wrapper {
+    padding: 0 14px;
+    margin: 18px auto 40px;
+  }
+  .policy-page-card {
+    padding: 24px 16px;
+    border-radius: 14px;
+  }
+  .policy-page-card h1 {
+    font-size: 22px !important;
+  }
+  .policy-page-card p {
+    font-size: 14px !important;
+  }
+}
+

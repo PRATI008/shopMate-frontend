@@ -1,0 +1,100 @@
+/* =======================================================
+   SELLER PORTAL RESPONSIVE STYLES
+======================================================= */
+.seller-container {
+  max-width: 1200px;
+  margin: 25px auto 50px;
+  padding: 0 20px;
+  min-height: 75vh;
+}
+
+.seller-banner {
+  background: linear-gradient(135deg, #131921 0%, #1e293b 100%);
+  color: #fff;
+  padding: 30px 40px;
+  border-radius: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+.seller-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 20px;
+  margin-bottom: 30px;
+  margin-top: 25px;
+}
+
+.seller-stat-card {
+  background: #fff;
+  padding: 22px;
+  border-radius: 14px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+}
+
+.seller-actions-bar {
+  background: #fff;
+  padding: 20px;
+  border-radius: 14px;
+  border: 1px solid #e2e8f0;
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.seller-features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px;
+  margin-top: 25px;
+}
+
+.seller-feature-card {
+  background: #fff;
+  padding: 26px 20px;
+  border-radius: 14px;
+  border: 1px solid #e2e8f0;
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .seller-container {
+    padding: 0 14px;
+    margin: 16px auto 35px;
+  }
+  .seller-banner {
+    padding: 22px 18px;
+    border-radius: 14px;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .seller-banner h1 {
+    font-size: 20px !important;
+  }
+  .seller-banner p {
+    font-size: 13.5px !important;
+  }
+  .seller-stats-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .seller-actions-bar {
+    flex-direction: column;
+    gap: 10px;
+  }
+  .seller-actions-bar button {
+    width: 100%;
+    justify-content: center;
+  }
+  .seller-features-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+}
+

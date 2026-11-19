@@ -642,40 +642,134 @@
 /* Responsive Rules */
 @media (max-width: 1024px) {
   .hero-slider-card {
-    padding: 40px 30px;
+    padding: 35px 24px;
     flex-direction: column-reverse;
     text-align: center;
-    gap: 25px;
+    gap: 20px;
+    min-height: auto;
+  }
+  .hero-slide-info {
+    max-width: 100%;
   }
   .hero-slide-info h1 {
-    font-size: 34px;
+    font-size: 32px;
   }
   .hero-slide-art img {
-    max-height: 240px;
+    max-height: 220px;
+    object-fit: contain;
   }
   .dual-feature-section {
     grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  .value-pillars-strip {
+    grid-template-columns: repeat(2, 1fr);
+    padding: 20px;
   }
 }
 
 @media (max-width: 640px) {
   .home-container {
-    padding: 15px 16px 40px;
+    padding: 12px 14px 40px;
+  }
+  .category-scroll-strip {
+    padding: 10px 14px;
+    gap: 10px;
+    border-radius: 12px;
+  }
+  .category-pill-card {
+    padding: 6px 12px;
+  }
+  .hero-slider-wrap {
+    border-radius: 16px;
+    margin-bottom: 24px;
+  }
+  .hero-slider-card {
+    padding: 25px 16px 35px;
   }
   .hero-slide-info h1 {
-    font-size: 28px;
+    font-size: 24px;
+    line-height: 1.2;
+  }
+  .hero-slide-info p {
+    font-size: 13.5px;
+  }
+  .hero-explore-btn {
+    padding: 10px 20px;
+    font-size: 13.5px;
+  }
+  .slide-arrow {
+    display: none;
+  }
+  .value-pillars-strip {
+    grid-template-columns: 1fr;
+    gap: 14px;
+    padding: 16px;
+    border-radius: 14px;
+  }
+  .section-header-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+  .section-header-row h2 {
+    font-size: 20px;
   }
   .products-grid-row {
     grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
+    gap: 10px;
   }
   .clean-product-card {
     padding: 10px;
+    border-radius: 12px;
   }
   .card-thumbnail-box {
-    height: 140px;
+    height: 130px;
+  }
+  .clean-product-card h3 {
+    font-size: 13px;
+    min-height: 34px;
+  }
+  .current-price {
+    font-size: 15px;
+  }
+  .original-price {
+    font-size: 11px;
+  }
+  .card-add-cart-btn {
+    padding: 8px;
+    font-size: 12px;
+  }
+  .feature-banner-box {
+    padding: 24px 20px;
+    border-radius: 14px;
+  }
+  .feature-banner-box h3 {
+    font-size: 20px;
+  }
+  .vip-perks-strip {
+    padding: 30px 18px;
+    border-radius: 16px;
+  }
+  .vip-content h2 {
+    font-size: 22px;
+  }
+  .vip-content p {
+    font-size: 13px;
+    margin-bottom: 20px;
   }
   .newsletter-form-inline {
     flex-direction: column;
+    gap: 8px;
+  }
+}
+
+@media (max-width: 380px) {
+  .products-grid-row {
+    grid-template-columns: 1fr;
+  }
+  .card-thumbnail-box {
+    height: 180px;
   }
 }

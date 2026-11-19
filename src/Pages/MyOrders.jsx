@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Header from '../Component/Header';
 import Footer from '../Component/Footer';
+import './CSS/MyOrders.css';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -44,7 +45,7 @@ const MyOrders = () => {
   return (
     <>
       <Header />
-      <div style={{ maxWidth: '1000px', margin: '30px auto 60px', padding: '0 20px', minHeight: '70vh' }}>
+      <div className="orders-page-wrapper">
         <h1 style={{ fontSize: '28px', fontWeight: '800', color: '#0f172a', marginBottom: '8px' }}>
           My Order History
         </h1>
@@ -89,29 +90,9 @@ const MyOrders = () => {
         ) : (
           <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
             {orders.map((ord) => (
-              <div
-                key={ord._id}
-                style={{
-                  background: 'white',
-                  borderRadius: '12px',
-                  border: '1px solid #e2e8f0',
-                  padding: '20px',
-                  boxShadow: '0 2px 8px rgba(0,0,0,0.02)'
-                }}
-              >
+              <div key={ord._id} className="order-box-card">
                 {/* Order Top Bar */}
-                <div
-                  style={{
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                    borderBottom: '1px solid #f1f5f9',
-                    paddingBottom: '14px',
-                    marginBottom: '16px',
-                    flexWrap: 'wrap',
-                    gap: '10px'
-                  }}
-                >
+                <div className="order-header-bar">
                   <div>
                     <span style={{ fontWeight: '700', color: '#0f172a', fontSize: '15px' }}>
                       Order #{ord.orderId}
@@ -177,15 +158,7 @@ const MyOrders = () => {
                   ))}
                 </div>
 
-                <div
-                  style={{
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                    borderTop: '1px solid #f8fafc',
-                    paddingTop: '14px'
-                  }}
-                >
+                <div className="order-footer-bar">
                   <div>
                     <span style={{ color: '#64748b', fontSize: '13px' }}>Total Amount: </span>
                     <strong style={{ fontSize: '16px', color: '#0f172a' }}>

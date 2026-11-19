@@ -218,3 +218,29 @@
 .admin-submit-btn:hover {
   background: #e0480b;
 }
+
+@media (max-width: 868px) {
+  .admin-container {
+    padding: 0 14px;
+    margin: 20px auto 40px;
+  }
+  .admin-stats-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+  .admin-tab {
+    padding: 9px 16px;
+    font-size: 13px;
+    flex: 1 1 calc(50% - 10px);
+    justify-content: center;
+  }
+  .admin-content-box {
+    padding: 18px 14px;
+    border-radius: 14px;
+  }
+  .admin-table th, .admin-table td {
+    padding: 10px 12px;
+    font-size: 13px;
+    white-space: nowrap;
+  }
+}

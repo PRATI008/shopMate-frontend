@@ -1,6 +1,7 @@
 import React from 'react';
 import Header from '../Component/Header';
 import Footer from '../Component/Footer';
+import './CSS/Policy.css';
 import { useNavigate } from 'react-router-dom';
 import { FaShieldHalved, FaLock, FaUserCheck, FaFileLines } from 'react-icons/fa6';
 
@@ -10,8 +11,8 @@ const PrivacyPolicy = () => {
   return (
     <>
       <Header />
-      <div style={{ maxWidth: '900px', margin: '40px auto', padding: '0 20px', minHeight: '70vh' }}>
-        <div style={{ background: '#fff', borderRadius: '16px', padding: '40px', border: '1px solid #e2e8f0', boxShadow: '0 4px 12px rgba(0,0,0,0.03)' }}>
+      <div className="policy-page-wrapper">
+        <div className="policy-page-card">
           <div style={{ display: 'flex', alignItems: 'center', gap: '14px', marginBottom: '20px' }}>
             <FaShieldHalved style={{ fontSize: '36px', color: '#ff5000' }} />
             <div>

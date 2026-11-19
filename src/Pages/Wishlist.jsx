@@ -4,7 +4,7 @@ import Footer from '../Component/Footer';
 import { useWishlist } from '../context/WishlistContext';
 import { useCart } from '../context/CartContext';
 import { useNavigate } from 'react-router-dom';
-import { FaTrash, FaCartPlus, FaHeartBroken, FaArrowLeft } from 'react-icons/fa';
+import { FaTrash, FaCartPlus, FaHeartCircleXmark, FaArrowLeft } from 'react-icons/fa6';
 
 const Wishlist = () => {
   const { wishlist, toggleWishlist } = useWishlist();
@@ -14,24 +14,26 @@ const Wishlist = () => {
   return (
     <>
       <Header />
-      <div style={{ maxWidth: '1200px', margin: '30px auto 60px', padding: '0 20px', minHeight: '70vh' }}>
-        <h1 style={{ fontSize: '28px', fontWeight: '800', color: '#0f172a', marginBottom: '25px' }}>
-          My Wishlist ({wishlist.length} items)
+      <div style={{ maxWidth: '1200px', margin: '20px auto 50px', padding: '0 16px', minHeight: '70vh' }}>
+        <h1 style={{ fontSize: '26px', fontWeight: '800', color: '#0f172a', marginBottom: '20px' }}>
+          My Wishlist ({wishlist.length} {wishlist.length === 1 ? 'item' : 'items'})
         </h1>
 
         {wishlist.length === 0 ? (
           <div
             style={{
               textAlign: 'center',
-              padding: '60px 20px',
+              padding: '50px 20px',
               background: '#ffffff',
               borderRadius: '16px',
               border: '1.5px dashed #cbd5e1'
             }}
           >
-            <FaHeartBroken size={50} color="#cbd5e1" style={{ marginBottom: '15px' }} />
+            <FaHeartCircleXmark size={52} color="#cbd5e1" style={{ marginBottom: '14px' }} />
             <h2 style={{ fontSize: '20px', color: '#1e293b' }}>Your wishlist is empty</h2>
-            <p style={{ color: '#64748b', margin: '10px 0 20px' }}>Save items you love to revisit anytime.</p>
+            <p style={{ color: '#64748b', margin: '8px 0 20px', fontSize: '14px' }}>
+              Save items you love to revisit and order anytime.
+            </p>
             <button
               onClick={() => navigate('/product')}
               style={{
@@ -41,7 +43,11 @@ const Wishlist = () => {
                 border: 'none',
                 borderRadius: '8px',
                 fontWeight: '700',
-                cursor: 'pointer'
+                cursor: 'pointer',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '8px',
+                fontSize: '14px'
               }}
             >
               <FaArrowLeft /> Explore Products
@@ -51,8 +57,8 @@ const Wishlist = () => {
           <div
             style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))',
-              gap: '25px'
+              gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))',
+              gap: '16px'
             }}
           >
             {wishlist.map((item) => (
@@ -60,10 +66,10 @@ const Wishlist = () => {
                 key={item._id}
                 style={{
                   background: '#ffffff',
-                  borderRadius: '16px',
-                  padding: '16px',
+                  borderRadius: '14px',
+                  padding: '14px',
                   border: '1px solid #f1f5f9',
-                  boxShadow: '0 4px 15px rgba(0,0,0,0.04)',
+                  boxShadow: '0 4px 15px rgba(0,0,0,0.03)',
                   display: 'flex',
                   flexDirection: 'column',
                   justifyContent: 'space-between'
@@ -71,8 +77,8 @@ const Wishlist = () => {
               >
                 <div
                   style={{
-                    height: '200px',
-                    borderRadius: '12px',
+                    height: '180px',
+                    borderRadius: '10px',
                     overflow: 'hidden',
                     background: '#f8fafc',
                     cursor: 'pointer'
@@ -86,20 +92,24 @@ const Wishlist = () => {
                   />
                 </div>
 
-                <div style={{ padding: '12px 0' }}>
+                <div style={{ padding: '10px 0' }}>
                   <h3
                     onClick={() => navigate(`/product/${item._id}`)}
                     style={{
-                      fontSize: '16px',
+                      fontSize: '14.5px',
                       fontWeight: '700',
                       color: '#0f172a',
                       cursor: 'pointer',
-                      margin: '0 0 6px 0'
+                      margin: '0 0 4px 0',
+                      whiteSpace: 'nowrap',
+                      overflow: 'hidden',
+                      textOverflow: 'ellipsis'
                     }}
+                    title={item.productTitle}
                   >
                     {item.productTitle}
                   </h3>
-                  <p style={{ fontSize: '18px', fontWeight: '800', color: '#f95919', margin: 0 }}>
+                  <p style={{ fontSize: '16px', fontWeight: '800', color: '#f95919', margin: 0 }}>
                     ₹{Number(item.productPrice || 0).toLocaleString()}
                   </p>
                 </div>
@@ -109,13 +119,13 @@ const Wishlist = () => {
                     onClick={() => addToCart(item)}
                     style={{
                       flex: 1,
-                      padding: '10px',
+                      padding: '9px',
                       background: '#f95919',
                       color: 'white',
                       border: 'none',
                       borderRadius: '8px',
                       fontWeight: '700',
-                      fontSize: '13px',
+                      fontSize: '12.5px',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
@@ -128,17 +138,20 @@ const Wishlist = () => {
 
                   <button
                     onClick={() => toggleWishlist(item)}
-                    title="Remove"
+                    title="Remove from wishlist"
                     style={{
-                      padding: '10px 14px',
+                      padding: '9px 12px',
                       background: '#fee2e2',
                       color: '#ef4444',
                       border: 'none',
                       borderRadius: '8px',
-                      cursor: 'pointer'
+                      cursor: 'pointer',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center'
                     }}
                   >
-                    <FaTrash />
+                    <FaTrash size={13} />
                   </button>
                 </div>
               </div>
@@ -152,4 +165,3 @@ const Wishlist = () => {
 };
 
 export default Wishlist;
-

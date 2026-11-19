@@ -145,6 +145,20 @@ const Header = () => {
         </div>
       </div>
 
+      {/* Mobile Search Bar Strip */}
+      <div className="mobile-search-strip">
+        <form className="mobile-search-form" onSubmit={handleSearchSubmit}>
+          <FaMagnifyingGlass className="search-icon-inside" />
+          <input
+            type="text"
+            placeholder="Search fashion, electronics, deals..."
+            value={headerSearch}
+            onChange={(e) => setHeaderSearch(e.target.value)}
+          />
+          <button type="submit">Go</button>
+        </form>
+      </div>
+
       {/* Navigation Sub-menu */}
       <nav className={`nav-sub-menu ${menuOpen ? "open" : ""}`}>
         <div className="nav-menu-inner">
